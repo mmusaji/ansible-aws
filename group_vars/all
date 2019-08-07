@@ -5,3 +5,4 @@ instance_size: t2.medium
 security_group: mustafa-demo
 keypair: laptop
 os: linux
+ami_id: ami-0e60ba06451c1b981
