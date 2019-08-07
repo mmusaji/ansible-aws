@@ -1,8 +1,10 @@
-ec2_region: eu-west-1
-vpc_name: mustafa-demo
-vpc_cidr: 172.31.0.0/16
+ec2_region: eu-west-2
+vpc_name: ansible-demo
+vpc_cidr: 10.10.0.0/16
 instance_size: t2.medium
-security_group: mustafa-demo
+security_group: ansible-demo
 keypair: laptop
 os: linux
-ami_id: ami-0e60ba06451c1b981
+ami_id: ami-070df8759bc0f329a
+ec2_instance_name: ansible-linux
+port: 22
