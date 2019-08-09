@@ -6,5 +6,3 @@
     cidr_block: "{{ vpc_cidr }}"
     region: "{{ ec2_region }}"
     state: absent
-    purge_cidrs: yes
-    register: vpc_delete
