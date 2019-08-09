@@ -1,6 +1,6 @@
 ---
 
-- name: create aws vpc
+- name: delete aws vpc
   hosts: localhost
   connection: local
   gather_facts: false
