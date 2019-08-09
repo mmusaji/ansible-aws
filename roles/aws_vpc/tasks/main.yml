@@ -1,5 +1,25 @@
 ---
 
+
+- name: delete gateway
+  ec2_vpc_igw:
+    vpc_id: "{{ vpc.vpc.id }}"
+    state: absent
+    region: "{{ ec2_region }}"
+
+- name: delete route table
+  ec2_vpc_route_table:
+    state: absent
+    vpc_id: "{{ vpc.vpc.id }}"
+    region: "{{ ec2_region }}"
+
+- name: delete subnet
+  ec2_vpc_subnet:
+    state: absent
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ vpc_cidr }}"
+    region: "{{ ec2_region }}"
+
 - name: delete the VPC
   ec2_vpc_net:   
     name: "{{ vpc_name }}"
