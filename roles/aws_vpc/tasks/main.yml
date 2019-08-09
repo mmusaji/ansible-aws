@@ -2,7 +2,7 @@
 
 - name: delete the VPC
   ec2_vpc_net:   
-    name: "{{ ansible-demo }}"
+    name: "{{ vpc_name }}"
     cidr_block: "{{ vpc_cidr }}"
     region: "{{ ec2_region }}"
     state: absent
