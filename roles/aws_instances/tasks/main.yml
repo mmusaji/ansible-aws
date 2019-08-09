@@ -3,5 +3,6 @@
 - name: delete all ec2 instances in my region (Use with caution)
   ec2_instance:
     state: absent
+    region: "{{ ec2_region }}"
     filters:
       instance-state-name: running
