@@ -1,26 +1,18 @@
 ---
 
-- name: delete demo vpc
-  ec2_vpc_net:
-    name: "{{ vpc_name }}"
-    cidr_block: "{{ vpc_cidr }}"
-    region: "{{ ec2_region }}"
+- name: delete elb classic
+  elb_classic_lb:
+    name: "ansible-demo"
     state: absent
-  register: vpc
-
-- name: delete subnet
-  ec2_vpc_subnet:
-    state: absent
-    vpc_id: "{{ vpc.vpc.id }}"
-    cidr: "{{ vpc_cidr }}"
     region: "{{ ec2_region }}"
 
-- name: delete internet gateway
-  ec2_vpc_igw:
+- name: delete security group
+  ec2_group:
+    name: "{{ security_group }}"
+    description: Ansible demo group
     vpc_id: "{{ vpc.vpc.id }}"
-    state: absent
     region: "{{ ec2_region }}"
-  register: igw
+    state: absent
 
 - name: delete route table id
   ec2_vpc_route_table_facts:
@@ -36,18 +28,37 @@
     route_table_id: "{{ route_table.route_tables[0].id }}"
     state: absent
 
-- name: delete security group
-  ec2_group:
-    name: "{{ security_group }}"
-    description: Ansible demo group
+- name: delete internet gateway
+  ec2_vpc_igw:
     vpc_id: "{{ vpc.vpc.id }}"
-    region: "{{ ec2_region }}"
-    state: absent
-
-
-- name: delete elb classic
-  elb_classic_lb:
-    name: "ansible-demo"
     state: absent
     region: "{{ ec2_region }}"
+  register: igw
+
+- name: delete subnet
+  ec2_vpc_subnet:
+    state: absent
+    vpc_id: "{{ vpc.vpc.id }}"
+    cidr: "{{ vpc_cidr }}"
+    region: "{{ ec2_region }}"
+
+- name: delete demo vpc
+  ec2_vpc_net:
+    name: "{{ vpc_name }}"
+    cidr_block: "{{ vpc_cidr }}"
+    region: "{{ ec2_region }}"
+    state: absent
+  register: vpc
+
+
+
+
+
+
+
+
+
+
+
+
 
