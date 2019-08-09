@@ -9,11 +9,10 @@
 
 - name: create subnet
   ec2_vpc_subnet:
-    state: present
+    state: absent
     vpc_id: "{{ vpc.vpc.id }}"
     cidr: "{{ vpc_cidr }}"
     region: "{{ ec2_region }}"
-  register: subnet
 
 - name: pass fact when running in tower
   set_stats:
@@ -23,7 +22,7 @@
 - name: create internet gateway
   ec2_vpc_igw:
     vpc_id: "{{ vpc.vpc.id }}"
-    state: present
+    state: absent
     region: "{{ ec2_region }}"
   register: igw
 
@@ -32,20 +31,14 @@
     region: "{{ ec2_region }}"
     filters:
       vpc-id: "{{ vpc.vpc.id }}"
-  register: route_table
+    state: absent
 
 - name: set up route table
   ec2_vpc_route_table:
     vpc_id: "{{ vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     route_table_id: "{{ route_table.route_tables[0].id }}"
-    lookup: id
-    purge_subnets: false
-    subnets:
-      - "{{ subnet.subnet.id }}"
-    routes:
-      - dest: 0.0.0.0/0
-        gateway_id: "{{ igw.gateway_id }}"
+    state: absent
 
 - name: create security group
   ec2_group:
@@ -53,48 +46,12 @@
     description: Ansible demo group
     vpc_id: "{{ vpc.vpc.id }}"
     region: "{{ ec2_region }}"
-    rules:
-      - proto: tcp
-        from_port: 80
-        to_port: 80
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 22
-        to_port: 22
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 5985
-        to_port: 5985
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 5986
-        to_port: 5986
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 3389
-        to_port: 3389
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 443
-        to_port: 443
-        cidr_ip: 0.0.0.0/0
-      - proto: tcp
-        from_port: 8443
-        to_port: 8443
-        cidr_ip: 0.0.0.0/0
+    state: absent
+
 
 - name: create elb classic
   elb_classic_lb:
     name: "ansible-demo"
-    state: present
+    state: absent
     region: "{{ ec2_region }}"
-    security_group_names:
-      - "{{ security_group }}"
-    subnets: 
-      - "{{ subnet.subnet.id }}"
-    listeners:
-      - protocol: http 
-        load_balancer_port: 80
-        instance_port: 80
-        proxy_protocol: True
-  register: elb
+
