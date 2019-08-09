@@ -1,18 +1,18 @@
 ---
 
 - name: get vpc id ready for deletion
-      local_action:
-        module: vpc_lookup
-        region: "{{ ec2_region }}"
-        tags:
-          Name: "{{ vpc_name }}"
-      register: vpc
+  local_action:
+    module: vpc_lookup
+    region: "{{ ec2_region }}"
+    tags:
+      Name: "{{ vpc_name }}"
+    register: vpc
 
 - name: delete vpc
-      local_action:
-        module: ec2_vpc
-        region: "{{ ec2_region }}"
-        state: absent
-        vpc_id: "{{ item }}"
-        wait: yes
-      with_items: vpc.vpc_ids
+  local_action:
+    module: ec2_vpc
+    region: "{{ ec2_region }}"
+    state: absent
+    vpc_id: "{{ item }}"
+    wait: yes
+  with_items: vpc.vpc_ids
