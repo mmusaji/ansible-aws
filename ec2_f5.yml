@@ -1,6 +1,0 @@
-- name: launch aws f5
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  roles:
-    - aws_f5

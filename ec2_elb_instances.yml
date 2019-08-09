@@ -1,8 +1,0 @@
----
-
-- name: register instances with elb
-  hosts: localhost
-  connection: local
-  gather_facts: false
-  roles:
-    - aws_elb_instances
