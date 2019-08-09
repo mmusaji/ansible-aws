@@ -1,8 +1,10 @@
 ---
 
-- name: gather vpc info
-  ec2_vpc_net_facts:
-    register: vpc
+- name: delete elb classic
+  elb_classic_lb:
+    name: "ansible-demo"
+    state: absent
+    region: "{{ ec2_region }}"
 
 - name: delete gateway
   ec2_vpc_igw:
