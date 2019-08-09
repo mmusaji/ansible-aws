@@ -1,4 +1,4 @@
-- name: launch instances
+- name: delete instances
   hosts: localhost
   connection: local
   gather_facts: false
