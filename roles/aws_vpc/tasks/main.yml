@@ -29,7 +29,6 @@
 - name: Delete subnet
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
-    az: "{{ec2_az}}"
     vpc_id: "{{ec2_vpc_id}}"
     cidr: "{{ec2_subnet}}"
     state: absent
