@@ -5,17 +5,35 @@
     name: "ansible-demo"
     state: absent
     region: "{{ ec2_region }}"
-
-- name: delete the subnet
-  ec2_vpc_subnet:
-    vpc_id: "{{ vpc.vpc.id }}"
+    
+- name: Get the VPC ID for my network
+  ec2_vpc_net_facts:
     region: "{{ ec2_region }}"
-    cidr: "{{ vpc_cidr }}"
+  register: vpc_net_facts
+  
+- name: use set fact for easier variables
+  set_fact:
+    ec2_vpc_id: "{{vpc_net_facts.vpcs[0].id}}"
+
+- name: Deleted EC2 security group for VPC
+  ec2_group:
+    name: "{{security_group}}"
+    region: "{{ ec2_region }}"
+    vpc_id: "{{ec2_vpc_id}}"
     state: absent
-  register: delete_subnet
-  until: delete_subnet is not failed
-  retries: 5
-  delay: 10
+  register: delete_sg
+  until: delete_sg is not failed
+  retries: 50
+  when: vpc_net_facts.vpcs|length > 0
+  
+- name: Delete subnet
+  ec2_vpc_subnet:
+    region: "{{ ec2_region }}"
+    az: "{{ec2_az}}"
+    vpc_id: "{{ec2_vpc_id}}"
+    cidr: "{{ec2_subnet}}"
+    state: absent
+  when: vpc_net_facts.vpcs|length > 0
     
 - name: delete the VPC
   ec2_vpc_net:   
