@@ -12,6 +12,10 @@
     region: "{{ ec2_region }}"
     cidr: "{{ vpc_cidr }}"
     state: absent
+  register: delete_subnet
+  until: delete_subnet is not failed
+  retries: 5
+  delay: 10
     
 - name: delete the VPC
   ec2_vpc_net:   
