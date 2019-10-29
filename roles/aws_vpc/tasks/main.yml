@@ -8,7 +8,7 @@
 
 - name: delete the subnet
   ec2_vpc_subnet:
-    vpc_id: "{{ vpc.vpc.id }}
+    vpc_id: "{{ vpc.vpc.id }}"
     region: "{{ ec2_region }}"
     cidr: "{{ vpc_cidr }}"
     state: absent
