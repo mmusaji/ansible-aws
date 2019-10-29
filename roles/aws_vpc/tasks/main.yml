@@ -6,12 +6,6 @@
     state: absent
     region: "{{ ec2_region }}"
 
-- name: delete the subnet
-  ec2_vpc_subnet:
-    vpc_id: "{{ vpc.vpc.id }}"
-    cidr: "{{ vpc_cidr }}"
-    state: absent
-
 - name: delete the VPC
   ec2_vpc_net:   
     name: "{{ vpc_name }}"
