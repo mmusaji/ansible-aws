@@ -6,6 +6,14 @@
     state: absent
     region: "{{ ec2_region }}"
 
+<<<<<<< HEAD
+=======
+- name: delete the subnet
+  ec2_vpc_subnet:
+    cidr: "{{ vpc_cidr }}"
+    state: absent
+
+>>>>>>> parent of a2d4e4b... going to include it in workflow - dependencies for vpc facts
 - name: delete the VPC
   ec2_vpc_net:   
     name: "{{ vpc_name }}"
