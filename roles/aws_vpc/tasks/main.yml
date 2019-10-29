@@ -19,6 +19,7 @@
   set_stats:
     data:
       subnet: "{{ subnet }}"
+      vpc: "{{ vpc }}"
 
 - name: create internet gateway
   ec2_vpc_igw:
