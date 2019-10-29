@@ -30,7 +30,7 @@
   ec2_vpc_subnet:
     region: "{{ ec2_region }}"
     vpc_id: "{{ec2_vpc_id}}"
-    cidr: "{{ec2_subnet}}"
+    cidr: "{{vpc_cidr}}"
     state: absent
   when: vpc_net_facts.vpcs|length > 0
     
