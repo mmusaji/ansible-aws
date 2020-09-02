@@ -1,5 +1,4 @@
 ---
-
 - name: launch ec2 instances
   ec2_instance:
     name: "ansible-{{ os }}"
