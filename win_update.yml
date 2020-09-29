@@ -1,8 +1,0 @@
----
-
-- hosts: all
-  tasks:
-  - name: security updates
-    win_updates:
-      category_names:
-      - SecurityUpdates

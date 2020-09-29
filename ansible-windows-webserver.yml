@@ -1,6 +1,0 @@
----
-
-- name: install windows webserver
-  hosts: all
-  roles:
-    - ansible-windows-webserver
