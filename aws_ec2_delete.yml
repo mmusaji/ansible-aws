@@ -1,0 +1,13 @@
+---
+- hosts: localhost
+  connection: local
+  gather_facts: False
+
+  tasks:
+    - name: terminate ec2 instance
+      ec2:
+         instance_ids: i-0c0710ec308e784ad
+         state: absent
+         region: eu-west-1
+         wait: yes
+      register: ec2
