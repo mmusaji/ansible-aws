@@ -6,7 +6,7 @@
   tasks:
     - name: terminate ec2 instance
       ec2:
-         instance_ids: i-0c0710ec308e784ad
+         instance_ids: i-0cfa7cb1f6e26a5b8
          state: absent
          region: eu-west-1
          wait: yes
