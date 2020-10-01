@@ -2,7 +2,6 @@
 - hosts: localhost
   connection: local
   gather_facts: False
-  become: yes
    
   tasks:
     - name: Provision an EC2 instance
@@ -20,17 +19,3 @@
          instance_tags:
             Name: DWP-Demo
       register: ec2
-
-    - name: Install Apache WebServer
-      yum:
-        name: httpd
-        state: latest
-        use_backend: yum4
-    
-    
-    - name: Ensure httpd service is started
-      service:
-        name: httpd
-        state: started
-        use_backend: yum4
-    
