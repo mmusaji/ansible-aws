@@ -8,6 +8,6 @@
       ec2_instance:
         state: absent
         region: eu-west-1
-        instance_ids: "i-0fbc1049a85529950,i-05d5d7ec01037a132,i-094a3ae67e38f8d0f"
+        instance_ids: "<<example instance ids>>"
 
        
