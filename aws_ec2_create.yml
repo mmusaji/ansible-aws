@@ -13,7 +13,7 @@
         region: eu-west-1
         cidr: 172.31.10.0/16
         tags:
-          Name: VM Subnet
+          Name: VM_Subnet
       register: vm_subnet
   
     - name: Provision an EC2 instance
@@ -23,7 +23,7 @@
          instance_type: t2.micro
          image: "{{ image }}"
          wait: true
-         vpc_subnet_id: "{{ vm_subnet }}"
+         vpc_subnet_id: VM_Subnet
          exact_count: 3
          count_tag:
            Name: Mus-Demo
