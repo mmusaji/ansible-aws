@@ -8,12 +8,12 @@
   tasks:
     - name: Create subnet for vm servers
       ec2_vpc_subnet:
+        name: ansibleVPC
         state: present
         vpc_id: vpc-2e4e7a48
         region: eu-west-1
         cidr: 172.31.10.0/16
-        tags:
-          Name: VM_Subnet
+      register: ansibleVPC
   
     - name: Provision an EC2 instance
       ec2:
@@ -22,7 +22,7 @@
          instance_type: t2.micro
          image: "{{ image }}"
          wait: true
-         vpc_subnet_id: VM_Subnet
+         vpc_subnet_id: "{{ ansibleVPC.vpc.id}}"
          exact_count: 3
          count_tag:
            Name: Mus-Demo
