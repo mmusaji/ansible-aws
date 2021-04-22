@@ -6,6 +6,15 @@
     - aws_vars.yml
    
   tasks:
+    - name: Create subnet for vm servers
+      amazon.aws.ec2_vpc_subnet:
+        state: present
+        vpc_id: vpc-123456
+        cidr: 10.0.1.16/28
+        tags:
+          Name: VM Subnet
+      register: vm_subnet
+  
     - name: Provision an EC2 instance
       ec2:
          region: eu-west-1
@@ -13,11 +22,11 @@
          instance_type: t2.micro
          image: "{{ image }}"
          wait: true
-         vpc_subnet_id: "{{ subnet }}"
+         vpc_subnet_id: "{{ vm_subnet }}"
          exact_count: 3
          count_tag:
-           Name: DWP-Demo
+           Name: Mus-Demo
          assign_public_ip: yes
          instance_tags:
-            Name: DWP-Demo
+            Name: Mus-Demo
       register: ec2
