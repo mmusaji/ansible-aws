@@ -11,7 +11,7 @@
         state: present
         vpc_id: vpc-2e4e7a48
         region: eu-west-1
-        cidr: 10.0.1.16/28
+        cidr: 172.0.10.0/16
         tags:
           Name: VM Subnet
       register: vm_subnet
