@@ -9,7 +9,7 @@
     - name: Create subnet for vm servers
       ec2_vpc_subnet:
         state: present
-        vpc_id: vpc-123456
+        vpc_id: vpc-2e4e7a48
         region: eu-west-1
         cidr: 10.0.1.16/28
         tags:
